@@ -121,9 +121,7 @@ function update() {
     }
 
     //score
-    context.fillStyle = "white";
-    context.font="45px sans-serif";
-    context.fillText(score, 5, 45);
+    document.getElementById("score-value").innerText = Math.floor(score);
 
     if (gameOver) {
         context.fillText("GAME OVER", 5, 90);
