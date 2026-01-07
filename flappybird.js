@@ -80,6 +80,7 @@ window.onload = function() {
     requestAnimationFrame(update);
     setInterval(placePipes, 1500); //every 1.5 seconds
     document.addEventListener("keydown", moveBird);
+    document.getElementById("restart-btn").addEventListener("click", restartGame);
 }
 
 function update() {
@@ -124,7 +125,7 @@ function update() {
     document.getElementById("score-value").innerText = Math.floor(score);
 
     if (gameOver) {
-        context.fillText("GAME OVER", 5, 90);
+        document.getElementById("game-over").classList.remove("hidden");
     }
 }
 
@@ -166,13 +167,23 @@ function moveBird(e) {
         velocityY = -6;
 
         //reset game
-        if (gameOver) {
-            bird.y = birdY;
-            pipeArray = [];
-            score = 0;
-            gameOver = false;
+        if (gameOver && (e.code == "Enter")) {
+            restartGame();
         }
     }
+
+    //restart game on Enter
+    if (e.code == "Enter" && gameOver) {
+        restartGame();
+    }
+}
+
+function restartGame() {
+    bird.y = birdY;
+    pipeArray = [];
+    score = 0;
+    gameOver = false;
+    document.getElementById("game-over").classList.add("hidden");
 }
 
 function detectCollision(a, b) {
