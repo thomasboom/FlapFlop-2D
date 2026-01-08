@@ -33,6 +33,12 @@ let bottomPipeImg;
 let velocityX = -2; //pipes moving left speed
 let velocityY = 0; //bird jump speed
 let gravity = 0.4;
+let jumpStrength = 6;
+
+function getJumpStrength() {
+    let scale = Math.min(boardWidth / 360, boardHeight / 640);
+    return jumpStrength * scale;
+}
 
 let gameOver = false;
 let score = 0;
@@ -43,16 +49,21 @@ function resizeCanvas() {
     board.height = window.innerHeight;
     boardWidth = board.width;
     boardHeight = board.height;
-    birdWidth = 34;
-    birdHeight = 24;
-    birdX = boardWidth/8;
-    birdY = boardHeight/2;
+    
+    let scale = Math.min(boardWidth / 360, boardHeight / 640);
+    
+    birdWidth = 34 * scale;
+    birdHeight = 24 * scale;
+    birdX = boardWidth / 8;
+    birdY = boardHeight / 2;
     bird.x = birdX;
     bird.y = birdY;
-    pipeWidth = 64;
-    pipeHeight = 512;
+    pipeWidth = 64 * scale;
+    pipeHeight = 512 * scale;
     pipeX = boardWidth;
     pipeY = 0;
+    
+    velocityX = -2 * scale;
 }
 
 window.onload = function() {
@@ -81,7 +92,10 @@ window.onload = function() {
     requestAnimationFrame(update);
     setInterval(placePipes, 1500); //every 1.5 seconds
     document.addEventListener("keydown", moveBird);
+    document.addEventListener("touchstart", handleTouch);
+    document.addEventListener("mousedown", handleTouch);
     document.getElementById("restart-btn").addEventListener("click", restartGame);
+    document.getElementById("restart-btn").addEventListener("touchstart", restartGame);
 }
 
 function update() {
@@ -167,7 +181,7 @@ function placePipes() {
 function moveBird(e) {
     if (e.code == "Space" || e.code == "ArrowUp" || e.code == "KeyX") {
         //jump
-        velocityY = -6;
+        velocityY = -getJumpStrength();
 
         //reset game
         if (gameOver && (e.code == "Enter")) {
@@ -181,6 +195,16 @@ function moveBird(e) {
     }
 }
 
+function handleTouch(e) {
+    if (e.type === "touchstart") {
+        e.preventDefault();
+    }
+    if (gameOver) {
+        return;
+    }
+    velocityY = -getJumpStrength();
+}
+
 function restartGame() {
     bird.y = birdY;
     pipeArray = [];
@@ -188,6 +212,7 @@ function restartGame() {
     bgScroll = 0;
     board.style.backgroundPosition = `0px bottom`;
     gameOver = false;
+    velocityY = 0;
     document.getElementById("game-over").classList.add("hidden");
 }
 
