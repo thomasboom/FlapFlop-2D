@@ -15,7 +15,7 @@ body {
 #board {
     display: block;
     background-color: #71c5cf;
-    background-image: url("./flappybirdbg.png");
+    background-image: url("../assets/images/background.png");
     background-size: 360px 640px;
     background-repeat: repeat-x;
     background-position: bottom;
@@ -29,14 +29,14 @@ body {
     transform: translateX(-50%);
     width: min(300px, 80vw);
     height: min(100px, 20vh);
-    background-image: url("./scoreboard.jpg");
+    background-image: url("../assets/images/scoreboard.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 10px solid transparent;
-    border-image: url("./scoreboard-border.jpg") 30 stretch;
+    border-image: url("../assets/images/scoreboard-border.jpg") 30 stretch;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }

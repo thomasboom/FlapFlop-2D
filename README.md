@@ -1,4 +1,4 @@
-# FlipFlop 2D
+# FlapFlop 2D
 
 A 2D arcade game built with HTML5 Canvas, CSS, and JavaScript.
 
