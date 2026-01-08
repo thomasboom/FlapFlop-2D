@@ -36,6 +36,7 @@ let gravity = 0.4;
 
 let gameOver = false;
 let score = 0;
+let bgScroll = 0;
 
 function resizeCanvas() {
     board.width = window.innerWidth;
@@ -88,6 +89,8 @@ function update() {
     if (gameOver) {
         return;
     }
+    bgScroll += velocityX;
+    board.style.backgroundPosition = `${bgScroll}px bottom`;
     context.clearRect(0, 0, board.width, board.height);
 
     //bird
@@ -182,6 +185,8 @@ function restartGame() {
     bird.y = birdY;
     pipeArray = [];
     score = 0;
+    bgScroll = 0;
+    board.style.backgroundPosition = `0px bottom`;
     gameOver = false;
     document.getElementById("game-over").classList.add("hidden");
 }

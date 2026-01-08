@@ -10,10 +10,11 @@ body {
 
 #board {
     display: block;
-    /* background-color: skyblue; */
+    background-color: #71c5cf;
     background-image: url("./flappybirdbg.png");
-    background-size: cover;
-    background-position: center;
+    background-size: 360px 640px;
+    background-repeat: repeat-x;
+    background-position: bottom;
 }
 
 #scoreboard {
